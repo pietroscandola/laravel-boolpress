@@ -33,6 +33,3 @@ Route::middleware('auth')
 /* Route::get('{any?}', function () {
     return view('guest.home');
 })->where("any", ".*"); */
-
-
-Route::get('/posts', 'Api\PostController@index');
