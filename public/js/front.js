@@ -2007,6 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PostsList",
   data: function data() {
@@ -2016,15 +2017,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getPosts: function getPosts() {
-      axios.get("http://127.0.0.1:8000/api/posts").then(function (res) {
-        console.log(res.data);
+      var _this = this;
+
+      axios.get("http://localhost:8000/api/posts").then(function (res) {
+        _this.posts = res.data;
       })["catch"](function (err) {
         console.error(err);
-      }).then(console.log("chiamata terminata"));
+      }).then(function () {
+        console.log("chiamata terminata");
+      });
     }
   },
   mounted: function mounted() {
-    this.getPosts;
+    this.getPosts();
   }
 });
 
@@ -37725,22 +37730,30 @@ var render = function () {
     _vm.posts.length
       ? _c(
           "div",
-          _vm._l(_vm.posts, function (post) {
-            return _c("div", { key: post.id, staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(post.title)),
+          [
+            _c("h1", [_vm._v("Posts")]),
+            _vm._v(" "),
+            _vm._l(_vm.posts, function (post) {
+              return _c("div", { key: post.id, staticClass: "card mb-4" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(post.title)),
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(
+                      "\n          " + _vm._s(post.content) + "\n        "
+                    ),
+                  ]),
                 ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v("\n          " + _vm._s(post.content) + "\n        "),
-                ]),
-              ]),
-            ])
-          }),
-          0
+              ])
+            }),
+          ],
+          2
         )
-      : _c("h3", [_vm._v("Non sono presenti post")]),
+      : _c("h3", { staticClass: "text-center" }, [
+          _vm._v("Non sono presenti post"),
+        ]),
   ])
 }
 var staticRenderFns = []
