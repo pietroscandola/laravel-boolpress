@@ -1,32 +1,41 @@
 <template>
   <div class="container mt-5">
-    <div v-if="posts.length">
-      <h1>Posts</h1>
-      <div v-for="post in posts" :key="post.id" class="card mb-4">
-        <!-- <img src="" class="card-img-top" alt="" /> -->
-        <div class="card-body">
-          <h5 class="card-title">{{ post.title }}</h5>
-          <p class="card-text">
-            {{ post.content }}
-          </p>
+    <Loader v-if="isLoading" />
+    <div v-else>
+      <div v-if="posts.length">
+        <h1>Posts</h1>
+        <div v-for="post in posts" :key="post.id" class="card mb-4">
+          <!-- <img src="" class="card-img-top" alt="" /> -->
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">
+              {{ post.content }}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <h3 class="text-center" v-else>Non sono presenti post</h3>
+      <h3 class="text-center" v-else>Non sono presenti post</h3>
+    </div>
   </div>
 </template>
 
 <script>
+import Loader from "../Loader.vue";
 export default {
   name: "PostsList",
+  components: {
+    Loader,
+  },
   data() {
     return {
       posts: [],
+      isLoading: false,
     };
   },
   methods: {
     getPosts() {
+      this.isLoading = true;
       axios
         .get("http://localhost:8000/api/posts")
         .then((res) => {
@@ -36,6 +45,7 @@ export default {
           console.error(err);
         })
         .then(() => {
+          this.isLoading = false;
           console.log("chiamata terminata");
         });
     },
