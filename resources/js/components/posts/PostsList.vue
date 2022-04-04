@@ -2,19 +2,10 @@
   <div class="container mt-5">
     <Loader v-if="isLoading" />
     <div v-else>
+      <h1 class="text-center mb-5">Posts</h1>
       <div v-if="posts.length">
-        <h1>Posts</h1>
-        <div v-for="post in posts" :key="post.id" class="card mb-4">
-          <!-- <img src="" class="card-img-top" alt="" /> -->
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">
-              {{ post.content }}
-            </p>
-          </div>
-        </div>
+        <PostCard v-for="post in posts" :key="post.id" :post="post" />
       </div>
-
       <h3 class="text-center" v-else>Non sono presenti post</h3>
     </div>
   </div>
@@ -22,10 +13,12 @@
 
 <script>
 import Loader from "../Loader.vue";
+import PostCard from "./PostCard.vue";
 export default {
   name: "PostsList",
   components: {
     Loader,
+    PostCard,
   },
   data() {
     return {

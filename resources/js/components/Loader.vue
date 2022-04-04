@@ -25,8 +25,8 @@ export default {
   align-items: center;
   z-index: 1;
   .spinner-border {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
 }
 </style>
