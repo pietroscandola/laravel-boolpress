@@ -1,6 +1,8 @@
 <template>
-    <div class="container">
-        <Header :title="title"/>
+    <div>
+        <header>
+             <Header :title="title"/>
+        </header>       
     </div>
 </template>
 
@@ -13,7 +15,7 @@ export default {
     },
     data(){
         return{
-            title:"Work in Progress",
+            title:"Boolpress",
         }
     }
 }

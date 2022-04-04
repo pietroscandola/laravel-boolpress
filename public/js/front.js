@@ -1917,15 +1917,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -1934,7 +1925,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      title: "Work in Progress"
+      title: "Boolpress"
     };
   }
 });
@@ -37550,25 +37541,8 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card" },
-          [
-            _c("Header", { attrs: { title: _vm.title } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    Sito in Costruzione\n                "
-              ),
-            ]),
-          ],
-          1
-        ),
-      ]),
-    ]),
+  return _c("div", [
+    _c("header", [_c("Header", { attrs: { title: _vm.title } })], 1),
   ])
 }
 var staticRenderFns = []
@@ -37593,9 +37567,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card-header" }, [
-    _c("h1", [_vm._v(_vm._s(_vm.title))]),
-  ])
+  return _c("div", [_c("h1", [_vm._v(_vm._s(_vm.title))])])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50033,7 +50005,7 @@ var root = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\pietr\Desktop\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\pietr\Desktop\Esercizi\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
