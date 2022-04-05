@@ -37,7 +37,6 @@ export default {
         .get("http://localhost:8000/api/posts?order=asc&page=" + page)
         .then((res) => {
           const { data, current_page, last_page } = res.data;
-
           this.posts = data;
           this.pagination = {
             currentPage: current_page,
