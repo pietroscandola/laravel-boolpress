@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-      <a class="navbar-brand" href="#">{{ title }}</a>
+      <router-link class="navbar-brand" to="/">{{ title }}</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -15,8 +15,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/">Home </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/contacts">Contatti </router-link>
           </li>
         </ul>
       </div>

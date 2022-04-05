@@ -1,8 +1,26 @@
 <template>
   <div>
     <div class="card mb-4">
-      <img :src="post.image" class="card-img-top" :alt="post.title" />
-      <div class="card-header">{{ updatedAt }}</div>
+      <img
+        v-if="post.image"
+        :src="post.image"
+        class="card-img-top"
+        :alt="post.title"
+      />
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div>
+          {{ updatedAt }}
+        </div>
+        <div>
+          <router-link
+            class="btn btn-success"
+            :to="{ name: 'post-detail', params: { id: post.id } }"
+            >Vedi</router-link
+          >
+        </div>
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">
@@ -17,7 +35,8 @@
           <span
             v-for="tag in post.tags"
             :key="tag.id"
-            :class="`badge badge-pill badge-${tag.color}`"
+            class="badge badge-pill"
+            :style="`background-color: ${tag.color}`"
           >
             {{ tag.label }}
           </span>
