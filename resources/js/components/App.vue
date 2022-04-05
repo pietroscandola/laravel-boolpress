@@ -3,8 +3,8 @@
     <header>
       <Header :title="title" />
     </header>
-    <main>
-      <PostsList />
+    <main class="container mt-5">
+      <router-view></router-view>
     </main>
   </div>
 </template>
