@@ -6,6 +6,10 @@ use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
+
+
+
 
 class PostSeeder extends Seeder
 {
@@ -16,9 +20,10 @@ class PostSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        $tag_ids = Tag::pluck('id')->toArray();
         $category_ids = Category::pluck('id')->toArray();
 
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $post = new Post();
             $post->category_id = Arr::random($category_ids);
             $post->title = $faker->text(10);
@@ -26,6 +31,13 @@ class PostSeeder extends Seeder
             $post->slug = Str::slug($post->title, '-');
             $post->is_published = 1;
             $post->save();
+
+            $post_tags = [];
+            foreach ($tag_ids as $tag_id) {
+                if ($faker->boolean()) $post_tags[] = $tag_id;
+            }
+
+            $post->tags()->attach($post_tags);
         }
     }
 }
