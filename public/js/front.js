@@ -2191,9 +2191,19 @@ __webpack_require__.r(__webpack_exports__);
         };
         this.isLoading = true;
         axios.post("http://localhost:8000/api/messages", params).then(function (res) {
-          _this.form.email = "";
-          _this.form.message = "";
-          /* this.alertMessage = "Messaggio inviato con successo"; */
+          if (res.data.errors) {
+            var _res$data$errors = res.data.errors,
+                email = _res$data$errors.email,
+                message = _res$data$errors.message;
+            var errors = {};
+            if (email) errors.email = email[0];
+            if (message) errors.message = message[0];
+            _this.errors = errors;
+          } else {
+            _this.form.email = "";
+            _this.form.message = "";
+            /* this.alertMessage = "Messaggio inviato con successo"; */
+          }
         })["catch"](function (err) {
           console.error(err.response.status);
           _this.errors = {

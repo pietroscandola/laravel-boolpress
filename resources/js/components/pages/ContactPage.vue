@@ -98,9 +98,17 @@ export default {
         axios
           .post("http://localhost:8000/api/messages", params)
           .then((res) => {
-            this.form.email = "";
-            this.form.message = "";
-            /* this.alertMessage = "Messaggio inviato con successo"; */
+            if (res.data.errors) {
+              const { email, message } = res.data.errors;
+              const errors = {};
+              if (email) errors.email = email[0];
+              if (message) errors.message = message[0];
+              this.errors = errors;
+            } else {
+              this.form.email = "";
+              this.form.message = "";
+              /* this.alertMessage = "Messaggio inviato con successo"; */
+            }
           })
           .catch((err) => {
             console.error(err.response.status);
