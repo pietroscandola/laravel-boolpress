@@ -15,6 +15,7 @@
         </div>
         <div>
           <router-link
+            v-if="!hideLink"
             class="btn btn-success"
             :to="{ name: 'post-detail', params: { id: post.id } }"
             >Vedi</router-link
@@ -49,7 +50,7 @@
 <script>
 export default {
   name: "PostCard",
-  props: ["post"],
+  props: ["post", "hide-link"],
   computed: {
     updatedAt() {
       const postDate = new Date(this.post.updated_at);
