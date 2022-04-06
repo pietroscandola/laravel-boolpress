@@ -18,6 +18,9 @@
         aria-describedby="emailHelp"
         v-model="form.email"
       />
+      <div v-if="errors.email" class="invalid-feedback">
+        {{ errors.email }}}
+      </div>
       <small class="form-text text-muted">
         Ti ricontatteremo a questo indirizzo
       </small>
@@ -31,6 +34,9 @@
         rows="5"
         v-model="form.message"
       ></textarea>
+      <div v-if="errors.message" class="invalid-feedback">
+        {{ errors.message }}}
+      </div>
       <small class="form-text text-muted">
         Scrivi il testo del tuo messaggio, ti risponderemo il più presto
         possibile
@@ -65,7 +71,7 @@ export default {
     },
   },
   methods: {
-    sendForm() {
+    validation() {
       // Validazione
 
       const errors = {};
@@ -80,26 +86,30 @@ export default {
         errors.email = "Email non valida";
 
       this.errors = errors;
-
-      const params = {
-        email: this.form.email,
-        message: this.form.message,
-      };
-      this.isLoading = true;
-      axios
-        .post("http://localhost:8000/api/messages", params)
-        .then((res) => {
-          this.form.email = "";
-          this.form.message = "";
-          /* this.alertMessage = "Messaggio inviato con successo"; */
-        })
-        .catch((err) => {
-          console.error(err.response.status);
-          this.errors = { error: "Si è verificato un errore" };
-        })
-        .then(() => {
-          this.isLoading = false;
-        });
+    },
+    sendForm() {
+      this.validation();
+      if (!this.hasError) {
+        const params = {
+          email: this.form.email,
+          message: this.form.message,
+        };
+        this.isLoading = true;
+        axios
+          .post("http://localhost:8000/api/messages", params)
+          .then((res) => {
+            this.form.email = "";
+            this.form.message = "";
+            /* this.alertMessage = "Messaggio inviato con successo"; */
+          })
+          .catch((err) => {
+            console.error(err.response.status);
+            this.errors = { error: "Si è verificato un errore" };
+          })
+          .then(() => {
+            this.isLoading = false;
+          });
+      }
     },
   },
 };

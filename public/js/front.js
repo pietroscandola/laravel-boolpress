@@ -2139,6 +2139,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2165,32 +2171,38 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    sendForm: function sendForm() {
-      var _this = this;
-
+    validation: function validation() {
       // Validazione
       var errors = {};
       if (!this.form.email.trim()) errors.email = "Email Obbligatoria";
       if (!this.form.message.trim()) errors.message = "Il testo del messaggio è obbligatorio";
       if (!this.form.email.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)) errors.email = "Email non valida";
       this.errors = errors;
-      var params = {
-        email: this.form.email,
-        message: this.form.message
-      };
-      this.isLoading = true;
-      axios.post("http://localhost:8000/api/messages", params).then(function (res) {
-        _this.form.email = "";
-        _this.form.message = "";
-        /* this.alertMessage = "Messaggio inviato con successo"; */
-      })["catch"](function (err) {
-        console.error(err.response.status);
-        _this.errors = {
-          error: "Si è verificato un errore"
+    },
+    sendForm: function sendForm() {
+      var _this = this;
+
+      this.validation();
+
+      if (!this.hasError) {
+        var params = {
+          email: this.form.email,
+          message: this.form.message
         };
-      }).then(function () {
-        _this.isLoading = false;
-      });
+        this.isLoading = true;
+        axios.post("http://localhost:8000/api/messages", params).then(function (res) {
+          _this.form.email = "";
+          _this.form.message = "";
+          /* this.alertMessage = "Messaggio inviato con successo"; */
+        })["catch"](function (err) {
+          console.error(err.response.status);
+          _this.errors = {
+            error: "Si è verificato un errore"
+          };
+        }).then(function () {
+          _this.isLoading = false;
+        });
+      }
     }
   }
 });
@@ -39065,6 +39077,12 @@ var render = function () {
           },
         }),
         _vm._v(" "),
+        _vm.errors.email
+          ? _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v("\n      " + _vm._s(_vm.errors.email) + "}\n    "),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("small", { staticClass: "form-text text-muted" }, [
           _vm._v("\n      Ti ricontatteremo a questo indirizzo\n    "),
         ]),
@@ -39097,6 +39115,12 @@ var render = function () {
             },
           },
         }),
+        _vm._v(" "),
+        _vm.errors.message
+          ? _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v("\n      " + _vm._s(_vm.errors.message) + "}\n    "),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("small", { staticClass: "form-text text-muted" }, [
           _vm._v(
