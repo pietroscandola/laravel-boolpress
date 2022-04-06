@@ -39070,7 +39070,7 @@ var render = function () {
             },
           ],
           staticClass: "form-control",
-          class: { "is-valid": _vm.errors.email },
+          class: { "is-invalid": _vm.errors.email },
           attrs: {
             type: "email",
             id: "email",
@@ -39089,13 +39089,11 @@ var render = function () {
         _vm._v(" "),
         _vm.errors.email
           ? _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v("\n      " + _vm._s(_vm.errors.email) + "}\n    "),
+              _vm._v("\n      " + _vm._s(_vm.errors.email) + "\n    "),
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("small", { staticClass: "form-text text-muted" }, [
-          _vm._v("\n      Ti ricontatteremo a questo indirizzo\n    "),
-        ]),
+          : _c("small", { staticClass: "form-text text-muted" }, [
+              _vm._v("\n      Ti ricontatteremo a questo indirizzo\n    "),
+            ]),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -39113,7 +39111,7 @@ var render = function () {
             },
           ],
           staticClass: "form-control",
-          class: { "is-valid": _vm.errors.message },
+          class: { "is-invalid": _vm.errors.message },
           attrs: { id: "message", rows: "5" },
           domProps: { value: _vm.form.message },
           on: {
@@ -39128,15 +39126,13 @@ var render = function () {
         _vm._v(" "),
         _vm.errors.message
           ? _c("div", { staticClass: "invalid-feedback" }, [
-              _vm._v("\n      " + _vm._s(_vm.errors.message) + "}\n    "),
+              _vm._v("\n      " + _vm._s(_vm.errors.message) + "\n    "),
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("small", { staticClass: "form-text text-muted" }, [
-          _vm._v(
-            "\n      Scrivi il testo del tuo messaggio, ti risponderemo il più presto\n      possibile\n    "
-          ),
-        ]),
+          : _c("small", { staticClass: "form-text text-muted" }, [
+              _vm._v(
+                "\n      Scrivi il testo del tuo messaggio, ti risponderemo il più presto\n      possibile\n    "
+              ),
+            ]),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex justify-content-end" }, [

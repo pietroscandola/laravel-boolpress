@@ -13,15 +13,15 @@
       <input
         type="email"
         class="form-control"
-        :class="{ 'is-valid': errors.email }"
+        :class="{ 'is-invalid': errors.email }"
         id="email"
         aria-describedby="emailHelp"
         v-model="form.email"
       />
       <div v-if="errors.email" class="invalid-feedback">
-        {{ errors.email }}}
+        {{ errors.email }}
       </div>
-      <small class="form-text text-muted">
+      <small v-else class="form-text text-muted">
         Ti ricontatteremo a questo indirizzo
       </small>
     </div>
@@ -29,15 +29,15 @@
       <label for="message">Testo del Messaggio</label>
       <textarea
         class="form-control"
-        :class="{ 'is-valid': errors.message }"
+        :class="{ 'is-invalid': errors.message }"
         id="message"
         rows="5"
         v-model="form.message"
       ></textarea>
       <div v-if="errors.message" class="invalid-feedback">
-        {{ errors.message }}}
+        {{ errors.message }}
       </div>
-      <small class="form-text text-muted">
+      <small v-else class="form-text text-muted">
         Scrivi il testo del tuo messaggio, ti risponderemo il più presto
         possibile
       </small>
