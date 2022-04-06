@@ -77,7 +77,7 @@ export default {
     },
 
     getCategoryColor() {
-      return "red"; /* this.post.category.color; */
+      return this.post.category.color;
     },
   },
 };

@@ -1,27 +1,33 @@
 <template>
   <div>
     <h1>Dettaglio Post</h1>
-    <!-- <Loader v-if="isLoading && !post" /> -->
-    <PostCard :post="post" hide-link="true" />
-    <Alert v-if="isError" type="danger" message="si è verificato un errore" />
+    <Loader v-if="isLoading && !post" />
+    <PostCard v-else :post="post" hide-link="true" />
+    <Alert
+      v-if="isError && !isLoading"
+      type="danger"
+      message="si è verificato un errore"
+      @on-close="isError = false"
+      dismissable="true"
+    />
   </div>
 </template>
 
 <script>
-import Alert from "../Alert.vue";
 import PostCard from "../posts/PostCard.vue";
-/* import Loader from "../Loader.vue"; */
+import Loader from "../Loader.vue";
+import Alert from "../Alert.vue";
 
 export default {
   name: "PageDetail",
   components: {
     PostCard,
-    /*  Loader, */
+    Loader,
     Alert,
   },
   data() {
     return {
-      post: {},
+      post: null,
       isLoading: false,
       isError: false,
     };

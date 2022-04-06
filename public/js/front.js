@@ -1912,9 +1912,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Alert",
-  props: ["message", "type"]
+  props: ["message", "type", "dismissable"]
 });
 
 /***/ }),
@@ -2155,8 +2162,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Alert_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Alert.vue */ "./resources/js/components/Alert.vue");
-/* harmony import */ var _posts_PostCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../posts/PostCard.vue */ "./resources/js/components/posts/PostCard.vue");
+/* harmony import */ var _posts_PostCard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../posts/PostCard.vue */ "./resources/js/components/posts/PostCard.vue");
+/* harmony import */ var _Loader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue");
+/* harmony import */ var _Alert_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Alert.vue */ "./resources/js/components/Alert.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2168,19 +2182,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-/* import Loader from "../Loader.vue"; */
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PageDetail",
   components: {
-    PostCard: _posts_PostCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-
-    /*  Loader, */
-    Alert: _Alert_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    PostCard: _posts_PostCard_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Loader: _Loader_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Alert: _Alert_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      post: {},
+      post: null,
       isLoading: false,
       isError: false
     };
@@ -2293,8 +2305,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.post.category.label;
     },
     getCategoryColor: function getCategoryColor() {
-      return "red";
-      /* this.post.category.color; */
+      return this.post.category.color;
     }
   }
 });
@@ -38608,11 +38619,24 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      class: "alert aler-" + _vm.type + " || 'info'",
-      attrs: { role: "alert" },
-    },
-    [_vm._v(_vm._s(_vm.message))]
+    { class: "alert aler-" + (_vm.type || "info"), attrs: { role: "alert" } },
+    [
+      _c(
+        "div",
+        { staticClass: "d-flex justify-content-between align-items-center" },
+        [
+          _c("div", [_vm._v(_vm._s(_vm.message))]),
+          _vm._v(" "),
+          _vm.dismissable
+            ? _c(
+                "span",
+                { attrs: { role: "button", click: "$emit('on-close')" } },
+                [_vm._v("\n      ×\n    ")]
+              )
+            : _vm._e(),
+        ]
+      ),
+    ]
   )
 }
 var staticRenderFns = []
@@ -38999,11 +39023,22 @@ var render = function () {
     [
       _c("h1", [_vm._v("Dettaglio Post")]),
       _vm._v(" "),
-      _c("PostCard", { attrs: { post: _vm.post, "hide-link": "true" } }),
+      _vm.isLoading && !_vm.post
+        ? _c("Loader")
+        : _c("PostCard", { attrs: { post: _vm.post, "hide-link": "true" } }),
       _vm._v(" "),
-      _vm.isError
+      _vm.isError && !_vm.isLoading
         ? _c("Alert", {
-            attrs: { type: "danger", message: "si è verificato un errore" },
+            attrs: {
+              type: "danger",
+              message: "si è verificato un errore",
+              dismissable: "true",
+            },
+            on: {
+              "on-close": function ($event) {
+                _vm.isError = false
+              },
+            },
           })
         : _vm._e(),
     ],
