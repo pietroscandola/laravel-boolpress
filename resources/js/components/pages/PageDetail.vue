@@ -1,24 +1,29 @@
 <template>
   <div>
     <h1>Dettaglio Post</h1>
-    <Loader v-if="isLoading && !post" />
-    <PostCard v-else :post="post" hide-link="true" />
+    <!-- <Loader v-if="isLoading && !post" /> -->
+    <PostCard :post="post" hide-link="true" />
+    <Alert v-if="isError" type="danger" message="si è verificato un errore" />
   </div>
 </template>
 
 <script>
+import Alert from "../Alert.vue";
 import PostCard from "../posts/PostCard.vue";
-import Loader from "../Loader.vue";
+/* import Loader from "../Loader.vue"; */
+
 export default {
   name: "PageDetail",
   components: {
     PostCard,
-    Loader,
+    /*  Loader, */
+    Alert,
   },
   data() {
     return {
       post: {},
       isLoading: false,
+      isError: false,
     };
   },
   methods: {
@@ -31,6 +36,7 @@ export default {
         })
         .catch((err) => {
           console.error(err);
+          this.isError = true;
         })
         .then(() => {
           this.isLoading = false;

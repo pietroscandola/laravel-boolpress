@@ -29,8 +29,8 @@
         </p>
       </div>
       <div class="card-footer">
-        <span :class="`badge badge-pill badge-${post.category.color}`">
-          {{ post.category.label }}
+        <span :class="`badge badge-pill badge-${getCategoryColor}`">
+          {{ getCategoryLabel }}
         </span>
         <div>
           <span
@@ -70,6 +70,14 @@ export default {
       }
 
       return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+    },
+
+    getCategoryLabel() {
+      return this.post.category.label;
+    },
+
+    getCategoryColor() {
+      return "red"; /* this.post.category.color; */
     },
   },
 };
