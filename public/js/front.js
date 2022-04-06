@@ -2093,14 +2093,106 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Loader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue");
+/* harmony import */ var _Alert_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Alert.vue */ "./resources/js/components/Alert.vue");
 //
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ContactPage"
+  name: "ContactPage",
+  components: {
+    Alert: _Alert_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Loader: _Loader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      form: {
+        email: "",
+        message: ""
+      },
+
+      /* alertMessage: "", */
+      isLoading: false,
+      errors: {}
+    };
+  },
+  computed: {
+    hasError: function hasError() {
+      return Object.keys(this.errors).length; //mi dice vero o falso se ho errori oppure no
+    }
+  },
+  methods: {
+    sendForm: function sendForm() {
+      var _this = this;
+
+      // Validazione
+      var errors = {};
+      if (!this.form.email.trim()) errors.email = "Email Obbligatoria";
+      if (!this.form.message.trim()) errors.message = "Il testo del messaggio è obbligatorio";
+      if (!this.form.email.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)) errors.email = "Email non valida";
+      this.errors = errors;
+      var params = {
+        email: this.form.email,
+        message: this.form.message
+      };
+      this.isLoading = true;
+      axios.post("http://localhost:8000/api/messages", params).then(function (res) {
+        _this.form.email = "";
+        _this.form.message = "";
+        /* this.alertMessage = "Messaggio inviato con successo"; */
+      })["catch"](function (err) {
+        console.error(err.response.status);
+        _this.errors = {
+          error: "Si è verificato un errore"
+        };
+      }).then(function () {
+        _this.isLoading = false;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2165,6 +2257,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _posts_PostCard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../posts/PostCard.vue */ "./resources/js/components/posts/PostCard.vue");
 /* harmony import */ var _Loader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue");
 /* harmony import */ var _Alert_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Alert.vue */ "./resources/js/components/Alert.vue");
+//
+//
 //
 //
 //
@@ -38915,18 +39009,121 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _vm.isLoading ? _c("Loader") : _vm._e(),
+      _vm._v(" "),
+      _c("h1", [_vm._v("Contattaci")]),
+      _vm._v(" "),
+      _vm.hasError
+        ? _c(
+            "Alert",
+            { attrs: { type: _vm.hasError ? "danger" : "success" } },
+            [
+              _vm.hasError
+                ? _c(
+                    "ul",
+                    _vm._l(_vm.errors, function (value, key) {
+                      return _c("li", { key: key }, [_vm._v(_vm._s(value))])
+                    }),
+                    0
+                  )
+                : _vm._e(),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.form.email,
+              expression: "form.email",
+            },
+          ],
+          staticClass: "form-control",
+          class: { "is-valid": _vm.errors.email },
+          attrs: {
+            type: "email",
+            id: "email",
+            "aria-describedby": "emailHelp",
+          },
+          domProps: { value: _vm.form.email },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.form, "email", $event.target.value)
+            },
+          },
+        }),
+        _vm._v(" "),
+        _c("small", { staticClass: "form-text text-muted" }, [
+          _vm._v("\n      Ti ricontatteremo a questo indirizzo\n    "),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "message" } }, [
+          _vm._v("Testo del Messaggio"),
+        ]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.form.message,
+              expression: "form.message",
+            },
+          ],
+          staticClass: "form-control",
+          class: { "is-valid": _vm.errors.message },
+          attrs: { id: "message", rows: "5" },
+          domProps: { value: _vm.form.message },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.form, "message", $event.target.value)
+            },
+          },
+        }),
+        _vm._v(" "),
+        _c("small", { staticClass: "form-text text-muted" }, [
+          _vm._v(
+            "\n      Scrivi il testo del tuo messaggio, ti risponderemo il più presto\n      possibile\n    "
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex justify-content-end" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success",
+            on: {
+              click: function ($event) {
+                return _vm.sendForm()
+              },
+            },
+          },
+          [_vm._v("Invia")]
+        ),
+      ]),
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("Contact Page")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39025,22 +39222,32 @@ var render = function () {
       _vm._v(" "),
       _vm.isLoading && !_vm.post
         ? _c("Loader")
-        : _c("PostCard", { attrs: { post: _vm.post, "hide-link": "true" } }),
-      _vm._v(" "),
-      _vm.isError && !_vm.isLoading
-        ? _c("Alert", {
-            attrs: {
-              type: "danger",
-              message: "si è verificato un errore",
-              dismissable: "true",
-            },
-            on: {
-              "on-close": function ($event) {
-                _vm.isError = false
-              },
-            },
-          })
-        : _vm._e(),
+        : _c(
+            "div",
+            [
+              _vm.post
+                ? _c("PostCard", {
+                    attrs: { post: _vm.post, "hide-link": "true" },
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.isError && !_vm.isLoading
+                ? _c("Alert", {
+                    attrs: {
+                      type: "danger",
+                      message: "si è verificato un errore",
+                      dismissable: "true",
+                    },
+                    on: {
+                      "on-close": function ($event) {
+                        _vm.isError = false
+                      },
+                    },
+                  })
+                : _vm._e(),
+            ],
+            1
+          ),
     ],
     1
   )

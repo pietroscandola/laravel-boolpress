@@ -2,14 +2,16 @@
   <div>
     <h1>Dettaglio Post</h1>
     <Loader v-if="isLoading && !post" />
-    <PostCard v-else :post="post" hide-link="true" />
-    <Alert
-      v-if="isError && !isLoading"
-      type="danger"
-      message="si è verificato un errore"
-      @on-close="isError = false"
-      dismissable="true"
-    />
+    <div v-else>
+      <PostCard v-if="post" :post="post" hide-link="true" />
+      <Alert
+        v-if="isError && !isLoading"
+        type="danger"
+        message="si è verificato un errore"
+        @on-close="isError = false"
+        dismissable="true"
+      />
+    </div>
   </div>
 </template>
 
