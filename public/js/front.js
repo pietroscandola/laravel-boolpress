@@ -1918,8 +1918,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Alert",
   props: ["message", "type", "dismissable"]
@@ -2149,6 +2147,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2216,6 +2215,10 @@ __webpack_require__.r(__webpack_exports__);
           _this.isLoading = false;
         });
       }
+    },
+    closeAlert: function closeAlert() {
+      this.alertMessage = null;
+      this.errors = false;
     }
   }
 });
@@ -38744,17 +38747,22 @@ var render = function () {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "d-flex justify-content-between align-items-center" },
+        { staticClass: "d-flex justify-content-end align-items-center" },
         [
           _c("div", [_vm._v(_vm._s(_vm.message))]),
           _vm._v(" "),
-          _vm.dismissable
-            ? _c(
-                "span",
-                { attrs: { role: "button", click: "$emit('on-close')" } },
-                [_vm._v("\n      ×\n    ")]
-              )
-            : _vm._e(),
+          _c(
+            "span",
+            {
+              attrs: { role: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("on-close")
+                },
+              },
+            },
+            [_vm._v("×")]
+          ),
         ]
       ),
     ],
@@ -39048,7 +39056,10 @@ var render = function () {
       _vm.hasError || _vm.alertMessage
         ? _c(
             "Alert",
-            { attrs: { type: _vm.hasError ? "danger" : "success" } },
+            {
+              attrs: { type: _vm.hasError ? "danger" : "success" },
+              on: { "on-close": _vm.closeAlert },
+            },
             [
               _vm.alertMessage
                 ? _c("div", [_vm._v(_vm._s(_vm.alertMessage))])

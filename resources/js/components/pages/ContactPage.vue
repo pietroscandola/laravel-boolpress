@@ -5,6 +5,7 @@
     <Alert
       v-if="hasError || alertMessage"
       :type="hasError ? 'danger' : 'success'"
+      @on-close="closeAlert"
     >
       <div v-if="alertMessage">{{ alertMessage }}</div>
       <ul v-if="hasError">
@@ -121,6 +122,10 @@ export default {
             this.isLoading = false;
           });
       }
+    },
+    closeAlert() {
+      this.alertMessage = null;
+      this.errors = false;
     },
   },
 };
