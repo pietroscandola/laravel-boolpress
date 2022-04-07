@@ -2,8 +2,11 @@
   <div class="container">
     <Loader v-if="isLoading" />
     <h1>Contattaci</h1>
-    <Alert v-if="hasError" :type="hasError ? 'danger' : 'success'">
-      <!-- <div v-if="alerMessage">{{ alertMessage }}</div> -->
+    <Alert
+      v-if="hasError || alertMessage"
+      :type="hasError ? 'danger' : 'success'"
+    >
+      <div v-if="alertMessage">{{ alertMessage }}</div>
       <ul v-if="hasError">
         <li v-for="(value, key) in errors" :key="key">{{ value }}</li>
       </ul>
@@ -60,7 +63,7 @@ export default {
         email: "",
         message: "",
       },
-      /* alertMessage: "", */
+      alertMessage: null,
       isLoading: false,
       errors: {},
     };
@@ -107,7 +110,7 @@ export default {
             } else {
               this.form.email = "";
               this.form.message = "";
-              /* this.alertMessage = "Messaggio inviato con successo"; */
+              this.alertMessage = "Messaggio inviato con successo";
             }
           })
           .catch((err) => {

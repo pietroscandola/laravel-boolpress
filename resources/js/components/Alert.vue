@@ -1,5 +1,6 @@
 <template>
-  <div :class="`alert aler-${type || 'info'}`" role="alert">
+  <div :class="`alert alert-${type || 'info'}`" role="alert">
+    <slot></slot>
     <div class="d-flex justify-content-between align-items-center">
       <div>{{ message }}</div>
       <span v-if="dismissable" role="button" click="$emit('on-close')">

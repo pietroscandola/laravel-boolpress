@@ -1919,6 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Alert",
   props: ["message", "type", "dismissable"]
@@ -2145,6 +2146,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2159,8 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
         email: "",
         message: ""
       },
-
-      /* alertMessage: "", */
+      alertMessage: null,
       isLoading: false,
       errors: {}
     };
@@ -2202,7 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
           } else {
             _this.form.email = "";
             _this.form.message = "";
-            /* this.alertMessage = "Messaggio inviato con successo"; */
+            _this.alertMessage = "Messaggio inviato con successo";
           }
         })["catch"](function (err) {
           console.error(err.response.status);
@@ -38735,8 +38738,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { class: "alert aler-" + (_vm.type || "info"), attrs: { role: "alert" } },
+    { class: "alert alert-" + (_vm.type || "info"), attrs: { role: "alert" } },
     [
+      _vm._t("default"),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "d-flex justify-content-between align-items-center" },
@@ -38752,7 +38757,8 @@ var render = function () {
             : _vm._e(),
         ]
       ),
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -39039,11 +39045,15 @@ var render = function () {
       _vm._v(" "),
       _c("h1", [_vm._v("Contattaci")]),
       _vm._v(" "),
-      _vm.hasError
+      _vm.hasError || _vm.alertMessage
         ? _c(
             "Alert",
             { attrs: { type: _vm.hasError ? "danger" : "success" } },
             [
+              _vm.alertMessage
+                ? _c("div", [_vm._v(_vm._s(_vm.alertMessage))])
+                : _vm._e(),
+              _vm._v(" "),
               _vm.hasError
                 ? _c(
                     "ul",
