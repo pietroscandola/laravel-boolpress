@@ -2,7 +2,7 @@
   <div :class="`alert alert-${type || 'info'}`" role="alert">
     <slot></slot>
     <div class="d-flex justify-content-end align-items-center">
-      <div>{{ message }}</div>
+      <span>{{ message }}</span>
       <span role="button" @click="$emit('on-close')">&times;</span>
     </div>
   </div>

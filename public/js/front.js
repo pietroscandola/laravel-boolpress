@@ -38749,7 +38749,7 @@ var render = function () {
         "div",
         { staticClass: "d-flex justify-content-end align-items-center" },
         [
-          _c("div", [_vm._v(_vm._s(_vm.message))]),
+          _c("span", [_vm._v(_vm._s(_vm.message))]),
           _vm._v(" "),
           _c(
             "span",
